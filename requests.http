@@ -1,0 +1,23 @@
+###All users
+
+GET Http://localhost:3000/users
+
+###Create user in dataBase
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Elson",
+  "email": "elson@example.com",
+  "password": "securepass123"
+}
+
+##Find user by email
+
+GET http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "elson@example.com",
+  "password": "securepass123"
+}
