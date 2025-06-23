@@ -7,17 +7,30 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Elson",
-  "email": "elson@example.com",
-  "password": "securepass123"
+  "name": "john",
+  "email": "john@example.com",
+  "password": "securepass1234"
 }
 
-##Find user by email
+###auth login user
 
 GET http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "elson@example.com",
-  "password": "securepass123"
+  "email": "john@example.com",
+  "password": "securepass1234"
 }
+
+###Create a article
+POST http://localhost:3000/articles/create
+Content-Type: application/json
+
+{
+  "title": "Hello team",
+  "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+  "authorId": 1
+}
+
+###find all articles
+GET http://localhost:3000/articles
