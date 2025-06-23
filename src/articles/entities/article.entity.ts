@@ -1,26 +1,26 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Article {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column()
     title:string
 
-    @Column()
+    @Column("text")
     content:string
 
     @CreateDateColumn()
-    createAt: Date
+    createdAt: Date
 
     @UpdateDateColumn()
-    updateAt: Date
+    updatedAt: Date
 
     @DeleteDateColumn()
     deleteDate: Date
 
     @ManyToOne(()=> User, (user) => user.articles)
-    author: Article
+    author: User
 }
