@@ -9,5 +9,5 @@ export class createArticleDto {
     content:string
 
     @IsNotEmpty()
-    authorId:number
+    authorId:string
 }
