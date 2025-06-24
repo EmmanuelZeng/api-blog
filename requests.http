@@ -7,8 +7,8 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "john",
-  "email": "john@example.com",
+  "name": "simeon",
+  "email": "simeon@example.com",
   "password": "securepass1234"
 }
 
@@ -18,7 +18,7 @@ GET http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "simeon@example.com",
   "password": "securepass1234"
 }
 
@@ -34,3 +34,18 @@ Content-Type: application/json
 
 ###find all articles
 GET http://localhost:3000/articles
+
+###find article by id
+GET http://localhost:3000/articles/1
+
+###delete article 
+DELETE http://localhost:3000/articles/2
+
+###update a article
+PATCH http://localhost:3000/articles/3
+Content-Type: application/json
+
+{
+  "title": "Hello canal",
+  "content": "Je suis allé aux cours aujourd'hui"
+}
