@@ -29,7 +29,7 @@ export class AuthService {
         return await compare(password, hashedPassword);
     }
 
-    private async authenticateUser({id}: {id: number}){
+    private async authenticateUser({id}: {id: string}){
         const payload = { id };
         return { access_token: await this.jwtService.sign(payload) }
     }
