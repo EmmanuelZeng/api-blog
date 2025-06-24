@@ -1,9 +1,8 @@
-import { Body, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createUserDto } from './dto/create-user.dto';
-import { authUserDto } from 'src/auth/dto/auth-user.dto';
 import { hash } from 'bcrypt';
 
 @Injectable()
@@ -34,11 +33,13 @@ export class UsersService {
         return users;
     }
     async getUserByEmail(email: string){
-        const user = await this.userRepository.findOneBy({['email'] : email})
+        const user = await this.userRepository.findOneBy({['email'] : email});
+        if(!user) throw new HttpException(`Aucun utilisateur ne correspond à l'email ${email}`, HttpStatus.BAD_REQUEST);
         return user;
     }
-    async findById(id: number) {
-        const user = await this.userRepository.findOneBy({['id'] : id})
+    async findById(id: string) {
+        const user = await this.userRepository.findOneBy({['id'] : id});
+        if (!user) throw new Error(`Utilisateur avec l'id ${id} introuvable`);
         return user;
     }
 }
