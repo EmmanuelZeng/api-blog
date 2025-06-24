@@ -1,10 +1,10 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Article {
     @PrimaryGeneratedColumn()
-    id: number
+    id: string
 
     @Column()
     title:string
