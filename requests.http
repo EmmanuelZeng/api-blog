@@ -3,13 +3,13 @@
 GET Http://localhost:3000/users
 
 ###Create user in dataBase
-POST http://localhost:3000/users
+POST http://localhost:3000/users/create
 Content-Type: application/json
 
 {
-  "name": "simeon",
-  "email": "simeon@example.com",
-  "password": "securepass1234"
+  "name": "grace",
+  "email": "grace@example.com",
+  "password": "grace@gmail.com"
 }
 
 ###auth login user
@@ -27,7 +27,7 @@ POST http://localhost:3000/articles/create
 Content-Type: application/json
 
 {
-  "title": "Hello team",
+  "title": "Hello umoja",
   "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
   "authorId": 1
 }
@@ -36,16 +36,43 @@ Content-Type: application/json
 GET http://localhost:3000/articles
 
 ###find article by id
-GET http://localhost:3000/articles/1
+GET http://localhost:3000/articles/3
 
 ###delete article 
-DELETE http://localhost:3000/articles/2
+DELETE http://localhost:3000/articles/3
 
 ###update a article
-PATCH http://localhost:3000/articles/3
+PATCH http://localhost:3000/articles/4
 Content-Type: application/json
 
 {
-  "title": "Hello canal",
+  "title": "Hello utech",
   "content": "Je suis allé aux cours aujourd'hui"
 }
+
+### Create commentaire
+POST http://localhost:3000/comments/create
+Content-Type: application/json
+
+{
+  "content": "hello",
+  "authorId": 2,
+  "articleId": 5
+}
+
+###Find all comments
+GET http://localhost:3000/comments
+
+###Find comment by id
+GET http://localhost:3000/comments/1
+
+###Update comment
+PATCH http://localhost:3000/comments/1
+Content-Type: application/json
+
+{
+  "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+
+###Detele commentaire
+DELETE http://localhost:3000/comments/1
