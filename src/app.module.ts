@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Article } from './articles/entities/article.entity';
 import { AuthModule } from './auth/auth.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/entities/comment.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { AuthModule } from './auth/auth.module';
       database: 'nest',
       entities: [
         User,
-        Article
+        Article,
+        Comment
       ],
       synchronize: true,
     }),
     UsersModule, 
-    ArticlesModule, AuthModule],
+    ArticlesModule, AuthModule, CommentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
