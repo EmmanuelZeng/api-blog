@@ -1,5 +1,6 @@
 import { Exclude } from "class-transformer";
 import { Article } from "src/articles/entities/article.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -28,4 +29,7 @@ export class User {
 
     @OneToMany(() => Article, (article) => article.author)
     articles: Article[]
+
+    @OneToMany(() => Comment, (comment) => comment.author)
+    comments: Comment[]
 }
