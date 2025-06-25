@@ -27,10 +27,10 @@ export class ArticlesService {
 
             await this.articleRepository.save(articleEntity);
 
-            return `L'article a été créé avec succès`;
+            return new HttpException("Article créé avec succès", HttpStatus.CREATED);
         } catch (error) {
             console.error("Erreur lors de la création de l'article :", error);
-            throw new InternalServerErrorException("Impossible de créer l'article");
+            throw new HttpException("Impossible de créer l'article", HttpStatus.BAD_REQUEST);
         }
     }
     async getAllArticles(){
@@ -50,15 +50,13 @@ export class ArticlesService {
     }
     async findOne(id: string) {
         try {
-            console.log("Recherche de l'article avec l'id :", id);
             // Vérifier si l'article avec l'id existe dans la base de données
             const article = await this.articleRepository.createQueryBuilder('article')
                 .leftJoinAndSelect('article.author', 'author')
                 .where('article.id =:id', {id: id})
                 .getOne();
 
-            if(!article) return (`Article avec l'id ${id} non trouvé.`);
-            const { title, content, createdAt, author } = article;
+            if(!article) return new HttpException('Article non trouvé', HttpStatus.NOT_FOUND);
             
             return article;
         } catch (error) {
@@ -68,7 +66,7 @@ export class ArticlesService {
     }
 
     async getOne(id: string) {
-        const article = this.articleRepository.findOneOrFail({
+        const article = await this.articleRepository.findOneOrFail({
             where: { id },
             relations: ['author']
         });
@@ -78,16 +76,14 @@ export class ArticlesService {
 
     async remove(id: string){
         const existingArticle = await this.getOne(id);
-        if(!existingArticle) throw new HttpException(`Article non trouvé`, HttpStatus.BAD_REQUEST);
         await this.articleRepository.remove(existingArticle);
-        return existingArticle;
+        return new HttpException("Article supprimé avec succès", HttpStatus.NO_CONTENT);
     }
 
     async update(id: string, updateArticleDTO: updateArticleDTO) {
         await this.getOne(id);
         await this.articleRepository.update(id, updateArticleDTO);
-        console.log(`L'article a été mis à jour`);
-        return this.findOne(id);
+        return new HttpException("Article mise à jour avec succès", HttpStatus.OK);
     }
 
 }
