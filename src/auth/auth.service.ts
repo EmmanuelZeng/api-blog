@@ -1,10 +1,7 @@
 import { authUserDto } from './dto/auth-user.dto';
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { compare } from 'bcrypt';
-import { error } from 'console';
-import { User } from 'src/users/entities/user.entity';
+import { compare, hash } from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -14,6 +11,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ){}
 
+    //Fonction login user
     async login(authBody: authUserDto) {
         const { email, password } = authBody;
         const existingUser = await this.userService.getUserByEmail(email);
@@ -25,10 +23,20 @@ export class AuthService {
         return this.authenticateUser({id : existingUser.id})
     }
 
+    //fonction récupérer le profile de l'utilisateur
+    async getProfile(name: string) {
+        const user = await this.userService.findById(name);
+        if(!user) throw new HttpException('Utilisateur non trouvé', HttpStatus.FORBIDDEN);
+
+        return {username: user.name, userEmail : user.email}
+    }
+
+    //Fonction qui vérifie le password inséré par le user et celle dans la base de données
     private async isPasswordValid(password:string, hashedPassword: string): Promise<boolean> {
         return await compare(password, hashedPassword);
     }
 
+    //Fonction qui gère le JWT 
     private async authenticateUser({id}: {id: string}){
         const payload = { id };
         return { access_token: await this.jwtService.sign(payload) }
