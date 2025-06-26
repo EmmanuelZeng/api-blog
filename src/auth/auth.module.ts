@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,7 +19,7 @@ import { UsersModule } from '../users/users.module';
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '15d' }
       })
-    })
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService],
