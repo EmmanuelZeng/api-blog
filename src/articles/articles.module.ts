@@ -11,10 +11,10 @@ import { AuthModule } from 'src/auth/auth.module';
   imports: [
     TypeOrmModule.forFeature([Article]),
     UsersModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [ArticlesService],
   controllers: [ArticlesController],
-  exports: [ArticlesService, TypeOrmModule]
+  exports: [ArticlesService]
 })
 export class ArticlesModule {}
