@@ -7,12 +7,14 @@ import { ArticlesService } from 'src/articles/articles.service';
 import { Comment } from './entities/comment.entity';
 import { UsersModule } from 'src/users/users.module';
 import { ArticlesModule } from 'src/articles/articles.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Comment]),
     UsersModule,
-    ArticlesModule
+    ArticlesModule,
+    AuthModule
   ],
   controllers: [CommentsController],
   providers: [CommentsService, UsersService, ArticlesService],
