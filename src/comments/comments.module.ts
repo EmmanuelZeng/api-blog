@@ -17,6 +17,6 @@ import { AuthModule } from 'src/auth/auth.module';
     AuthModule
   ],
   controllers: [CommentsController],
-  providers: [CommentsService, UsersService, ArticlesService],
+  providers: [CommentsService],
 })
 export class CommentsModule {}
