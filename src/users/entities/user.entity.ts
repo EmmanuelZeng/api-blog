@@ -1,3 +1,4 @@
+import { Optional } from "@nestjs/common";
 import { Exclude } from "class-transformer";
 import { Article } from "src/articles/entities/article.entity";
 import { Comment } from "src/comments/entities/comment.entity";
@@ -14,10 +15,17 @@ export class User {
     @Column({unique: true})
     email: string
 
+    @Column({default: 'user'})
+    role: string
+
     @Column()
     @Exclude()
-    password: string
+    password?: string
 
+    @Column({type: 'text', nullable: true})
+    @Exclude()
+    refreshToken?: string;
+    
     @CreateDateColumn()
     creatAt: Date
 
@@ -27,9 +35,9 @@ export class User {
     @DeleteDateColumn()
     deleteDate: Date
 
-    @OneToMany(() => Article, (article) => article.author)
+    @OneToMany(() => Article, (article) => article.author, {onDelete: "CASCADE"})
     articles: Article[]
 
-    @OneToMany(() => Comment, (comment) => comment.author)
+    @OneToMany(() => Comment, (comment) => comment.author, {onDelete: "CASCADE"})
     comments: Comment[]
 }
