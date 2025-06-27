@@ -3,7 +3,7 @@ import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 import { createArticleDto } from 'src/articles/dto/create-article.dto';
 
 @ApiTags("Commentaires")
@@ -12,7 +12,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @ApiOperation({summary: "création de l'article"})
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessTokenGuard)
   @ApiBearerAuth()
   @ApiResponse({status: 200, type: createArticleDto})
   @ApiBody({type: createArticleDto})
@@ -33,7 +33,7 @@ export class CommentsController {
   }
 
   @ApiOperation({summary: "Mise à jour du commentaire"})
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessTokenGuard)
   @ApiBearerAuth()
   @ApiParam({name: "id", description: "l'identifiant du commentaire"})
   @ApiBody({type: UpdateCommentDto})
@@ -43,7 +43,7 @@ export class CommentsController {
   }
 
   @ApiOperation({summary: "Suppression du commentaire"})
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessTokenGuard)
   @ApiBearerAuth()
   @ApiParam({name: "id", description: "l'identifiant du commentaire"})
   @Delete(':id')
