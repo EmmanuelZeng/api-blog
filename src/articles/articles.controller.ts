@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@n
 import { createArticleDto } from './dto/create-article.dto';
 import { ArticlesService } from './articles.service';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @ApiTags('articles')
 @Controller('articles')
@@ -12,7 +12,7 @@ export class ArticlesController {
         private readonly articleService: ArticlesService
     ){}
     @ApiOperation({summary: "création de l'article"})
-    @UseGuards(AuthGuard)
+    @UseGuards(AccessTokenGuard)
     @ApiBearerAuth()
     @ApiBody({type: createArticleDto})
     @ApiResponse({status: 200, description: "article créé avec succès"})
@@ -35,7 +35,7 @@ export class ArticlesController {
         return this.articleService.findOne(id);
     }
     
-    @UseGuards(AuthGuard)
+    @UseGuards(AccessTokenGuard)
     @ApiBearerAuth()
     @Delete(':id')
     remove(@Param('id') id: string) {
@@ -43,7 +43,7 @@ export class ArticlesController {
     }
 
     @ApiOperation({summary: "Mise à jour de l'article"})
-    @UseGuards(AuthGuard)
+    @UseGuards(AccessTokenGuard)
     @ApiBearerAuth()
     @ApiResponse({status: 200, description: "article mise à jour"})
     @ApiParam({name: "id", description: "identifiant pour l'article à modifier"})
