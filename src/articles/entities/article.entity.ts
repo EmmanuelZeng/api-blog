@@ -25,6 +25,6 @@ export class Article {
     @ManyToOne(()=> User, (user) => user.articles)
     author: User
 
-    @OneToMany(() => Comment, (comment) => comment.article)
+    @OneToMany(() => Comment, (comment) => comment.article, {onDelete: "CASCADE"})
     comments: Comment[]
 }
